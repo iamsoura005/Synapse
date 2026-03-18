@@ -1,0 +1,1 @@
+"""SYNAPSE Kafka Module."""

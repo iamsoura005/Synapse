@@ -1,0 +1,236 @@
+=== SYNAPSE_PRD.docx ===
+◈  PRODUCT REQUIREMENTS DOCUMENT
+SYNAPSE
+Ambient Relationship Intelligence OS
+The social nervous system for your digital life.
+1. Executive Summary
+AgentMesh pioneered on-demand agent-to-agent negotiation. SYNAPSE evolves this into something fundamentally different: a proactive, always-on social nervous system. The paradigm shift is from reactive (you ask → agents negotiate) to ambient (agents watch → detect tension → resolve silently).
+Every human relationship — between friends, colleagues, roommates, freelancers, or families — is a constant stream of implicit expectations, unspoken preferences, and potential conflicts. SYNAPSE surfaces that invisible tension, models it in real-time, and resolves it before it becomes friction.
+2. Problem Statement
+2.1  The Real Problem Is Not Friction — It's Invisibility
+AgentMesh correctly identifies micro-negotiation friction as painful. But the root cause goes deeper: most interpersonal tensions are never surfaced at all. People avoid the conversation entirely, let resentment accumulate, or make decisions without alignment — not because negotiation is hard, but because they don't know negotiation is needed.
+SYNAPSE addresses the upstream problem: the tension that never becomes a conversation.
+2.2  The Four Invisibility Traps
+Trap 1: You don't know you're misaligned
+Two roommates have different implicit expectations about cleaning schedules, guests, and noise. Neither realizes the gap until something breaks.
+Trap 2: You know but don't know when to surface it
+You've noticed a freelance client is consistently late on payments, but every time you want to raise it, the moment feels wrong.
+Trap 3: The group has no single decision-maker
+Six friends planning a trip need to coordinate budget, dates, destination, and activities. No one has authority. Every opinion is valid. Paralysis follows.
+Trap 4: You're too emotional to negotiate rationally right now
+You receive an unfair performance review. Your instinct is to respond immediately. The instinct is wrong.
+2.3  Market Opportunity
+3. The SYNAPSE Concept
+3.1  Core Mental Model: The Social Nervous System
+A nervous system doesn't wait for pain — it constantly monitors, processes signals, and responds before damage occurs. SYNAPSE is this for your relationships. It has three operating layers, analogous to the autonomic, somatic, and central nervous systems:
+3.2  The Flagship Innovation: Proactive Friction Detection
+SYNAPSE computes a Tension Score (0–100) for every tracked relationship and situation. When this score crosses a configurable threshold, SYNAPSE initiates agent negotiation autonomously — without waiting for a user request.
+Tension signals include:
+Calendar: two parties' calendars show a meeting time conflict for a recurring event
+Finance: shared expense tracker shows one party consistently paying above their agreed ratio
+Tasks: project management integration detects a deadline approaching with misaligned completion estimates
+Communication: NLP analysis of shared channel messages detects rising negative sentiment
+Behavioral: user's own agent notices they've delayed initiating a conversation 3 times — avoidance pattern
+3.3  The Second Innovation: Coalition Negotiation (N-Party, Not 2-Party)
+AgentMesh negotiates between 2 agents. SYNAPSE introduces coalition negotiation — where any number of agents represent any number of stakeholders, and the system finds a fair resolution using game-theoretic allocation.
+SYNAPSE uses a Shapley Value-inspired allocation engine — a method from cooperative game theory that measures each party's marginal contribution to the group outcome and distributes value accordingly. This means:
+Every party receives a resolution that reflects their actual leverage and preferences
+No party can be systematically exploited by a majority coalition
+Concession requests are mathematically fair, not arbitrary
+The system can handle partial coalitions — some people can opt out while others reach agreement
+3.4  The Third Innovation: Emotion Gating
+SYNAPSE monitors your biometric and behavioral state before surfacing a negotiation outcome. If you're stressed, sleep-deprived, or emotionally activated — the resolution waits in a queue and is delivered at the optimal moment.
+Emotion signals (user-configurable, privacy-first):
+Time of day and calendar context (meeting just ended, or free block)
+App usage patterns (late-night phone use = stress signal)
+Optional: wearable heart rate variability data
+Message response latency patterns
+3.5  The Fourth Innovation: Living Social Contracts
+AgentMesh produces a static, hash-verified agreement. SYNAPSE creates Living Contracts — structured agreements with built-in adaptation rules that auto-renegotiate when context changes, without requiring a new conversation.
+4. Target Users & Personas
+5. Technical Architecture
+5.1  System Architecture Overview
+SYNAPSE is built on five interconnected subsystems:
+5.1.1  Sensor Network
+Integration hub connecting to: Google Calendar, Gmail, Slack, Notion, Linear, Splitwise, UPI/banking APIs
+Webhook-driven event streaming — new events push into the SYNAPSE event queue in real time
+Privacy-preserving local processing: raw message content is never stored; only computed vectors and sentiment scores are persisted
+Configurable per-integration: users explicitly choose which data sources SYNAPSE may observe
+5.1.2  Relationship Graph Engine
+Neo4j graph database stores relationship nodes (people) and weighted edges (interaction types, tension scores, agreement history)
+Each relationship edge carries: compatibility score, negotiation style profile, historical concession patterns, trust index
+Graph is continuously updated by every resolved negotiation and every detected signal
+The Relationship Health Score (0–100) is a weighted composite visible to the user on their dashboard
+5.1.3  Multi-Agent Negotiation Engine
+Built on LangGraph — each negotiation is a stateful, directed graph of agent turns
+Agent types: Sensor Agent (monitors), Context Agent (builds situation brief), Negotiator Agent (runs N-party dialogue), Emotion Agent (monitors delivery readiness)
+All agents use structured JSON mode with required fields: stance, concession_amount, satisfaction_score, BATNA_score, fairness_index
+Coalition formation algorithm: before negotiation, agents form sub-coalitions using Nash bargaining to find stable configurations
+Shapley-value allocator distributes the agreement across all parties
+5.1.4  Living Contract Runtime
+Agreements stored as structured JSON objects with clause types: static, adaptive, expiry, escalation, milestone
+Contract runtime monitors trigger conditions using the same sensor network
+When a trigger fires, the adaptive clause re-negotiates automatically with all parties' agents — user receives notification with one-tap approve/override
+Immutable audit log: every version of every contract is SHA-256 hashed and submitted to Polygon Amoy with timestamp
+5.1.5  Delivery & Interface Layer
+Primary interface: ambient notification (mobile push) with a pre-baked resolution card — swipe right to approve, left to modify
+Secondary: WhatsApp / Telegram agent bot for users who prefer conversational review
+Voice delivery: ElevenLabs TTS converts resolution briefs to personalized voice notes per relationship (your SYNAPSE agent has a consistent voice identity)
+Web dashboard: React + Next.js showing relationship graph visualization, tension timelines, contract states, and fairness scores
+5.2  Tech Stack
+6. Features & Use Cases
+6.1  Core Feature Set (MVP)
+Feature 1: Ambient Friction Detection
+SYNAPSE continuously monitors connected data sources and surfaces a Tension Alert when a relationship's tension score exceeds the user's configured threshold.
+User connects calendar, email, and one messaging platform
+SYNAPSE computes tension scores for each active relationship daily
+When threshold crossed: user receives a concise brief — 'I noticed a potential conflict with [Name] around [Topic]. I can handle it.'
+User approves agent action with one tap — or customizes approach
+Feature 2: Coalition Negotiation
+For any group decision (trip, project, shared space), SYNAPSE orchestrates a multi-agent negotiation across all members' agents and delivers a Pareto-optimal group resolution.
+Group initiator creates a SYNAPSE session and invites members
+Each member's agent ingests their preferences, constraints, and budget privately
+Agents run coalition formation + Shapley-value negotiation
+Resolution delivered to all members simultaneously: each sees their outcome + group fairness score
+Members who disagree can trigger one override round
+Feature 3: Living Contract Manager
+Every SYNAPSE agreement becomes a Living Contract with user-defined adaptive rules.
+Contract builder: drag-and-drop clause creation (static, adaptive, expiry, escalation)
+Trigger monitor: SYNAPSE watches for clause trigger conditions in the background
+Auto-renegotiation: when triggered, agents re-negotiate the affected clause silently and surface a proposed update
+Full version history with Polygon hash per version
+Feature 4: Emotion Gate
+SYNAPSE holds negotiation results until the optimal delivery window for each party.
+Each user configures their 'receptive windows' — times of day, contexts, and stress signals that define when they're ready for high-stakes communications
+SYNAPSE queues resolutions and delivers them inside the next receptive window
+Escalation: if a resolution is queued for more than X hours, the party is notified and can choose immediate delivery
+Feature 5: Relationship Health Dashboard
+A visual interface showing the health, history, and trajectory of every tracked relationship.
+Interactive graph: nodes = people, edge weight = relationship health score
+Tension timeline: how tension has evolved over past 30/90/180 days
+Agreement record: all Living Contracts, their versions, and their Polygon proofs
+Insights panel: AI-generated patterns — 'Your negotiations with [Name] are 3x faster when initiated on Tuesday mornings.'
+6.2  Use Case Matrix
+7. Product Roadmap
+8. Business Model
+Additional revenue streams: transaction fees on UPI payment resolutions (0.5%), API access for B2B integrations, white-label licensing for HR platforms and legal tech companies.
+9. Risks & Mitigations
+10. Success Metrics
+10.1  Product Health KPIs
+11. Why SYNAPSE Is Genuinely Novel
+Five things no existing product does:
+Proactive conflict detection — No consumer AI product today monitors relationship signals ambientally and initiates negotiation before the user feels the tension.
+Shapley-value coalition negotiation — Applying cooperative game theory to everyday social decisions is unexplored consumer territory.
+Emotion-gated delivery — Timing a resolution delivery to emotional state is a category-creating concept. No negotiation tool today knows when you're ready to hear the answer.
+Living social contracts — Agreements that adapt to reality rather than being static documents you have to remember to revisit.
+The relationship graph as product — Turning every resolved conflict into a data point that makes all future negotiations smarter. The product compounds in value with every interaction.
+SYNAPSE  ·  Ambient Relationship Intelligence OS  ·  PRD v1.0  ·  Confidential
+
+========================================
+
+=== SYNAPSE_SystemDesign.docx ===
+SYSTEM DESIGN & TECH STACK DOCUMENT
+SYNAPSE
+Ambient Relationship Intelligence OS
+1. System Overview
+SYNAPSE is an ambient relationship intelligence OS that runs persistently in the background of a user's digital life. It detects interpersonal friction before it surfaces, orchestrates multi-agent negotiations autonomously, and delivers resolutions at the right emotional moment — all without requiring the user to initiate anything.
+This document covers the complete system design: all six pipeline layers, their internal architecture, the tech stack powering each layer, data flow between components, and the design decisions that underpin each choice.
+2. The Six Pipeline Layers
+The system is structured as six distinct pipeline layers, each with a defined input, output, and responsibility boundary. No layer communicates directly with a non-adjacent layer — all cross-layer communication is event-driven via Kafka topics.
+Layer 1: Data Sensor Layer
+How it works
+Each integration runs as a lightweight FastAPI service (called a Sensor Adapter). Adapters are stateless and horizontally scalable. They consume raw data via webhooks (push-model) or polling (pull-model, fallback only), normalize the payload into the SYNAPSE CanonicalEvent schema, compute a lightweight local PreTensionScore using rule-based heuristics, and emit the event to Kafka.
+Integration list and method
+CanonicalEvent schema (simplified)
+Layer 2: Event Streaming Layer — Apache Kafka
+Kafka topic design
+Configuration
+Replication factor: 3 (minimum) across brokers for fault tolerance
+Retention: 7 days for all topics; 90 days for audit_log
+Consumer groups: each agent type runs as an independent consumer group — allowing parallel processing of different relationships
+Exactly-once semantics enabled on negotiation_start and contract_events topics — these must never be processed twice
+Layer 3: Synapse Agent Layer
+Agent 1 — Sensor Agent
+Consumes events from pipeline.tension_signals. Maintains a rolling Tension Score per relationship using a time-weighted exponential moving average (EMA). When the score crosses the user-configured threshold (default: 65/100), it emits a TensionAlert to pipeline.negotiation_start.
+Model: Gemini 2.0 Flash (function-calling mode)
+State: persisted per relationship_id in Redis (TTL: 24h for score cache)
+Tension scoring formula: TS_new = α × event_score + (1-α) × TS_old, where α = 0.3 (configurable)
+Anti-noise filter: score must stay above threshold for ≥ 2 consecutive events before alert fires
+Agent 2 — Context Agent
+Triggered by TensionAlert. Queries Neo4j for the full relationship context: interaction history, past concession patterns, negotiation style profile, and trust index. Produces a ContextBrief — a structured JSON object passed to the Negotiation Engine.
+Model: Gemini 1.5 Pro (larger context window, deep history analysis)
+Inputs: relationship_id, party_ids, event payload, Neo4j relationship edge data
+Output: ContextBrief with fields: party_profiles[], tension_type, BATNA_estimates[], historical_outcomes[], recommended_approach
+LangChain retrieval chain: augments context with Tavily Search for factual grounding (e.g., real market rates for freelance negotiations)
+Agent 3 — Emotion Agent
+Runs independently of the negotiation flow. Monitors each user's behavioral signals and maintains an EmotionalReadiness score (0–100). The Delivery Layer queries this score before surfacing any resolution. If score < 60, the resolution is queued.
+Model: Gemini 2.0 Flash (fast, lightweight, runs continuously)
+Input signals: time of day, calendar free/busy status, app usage recency, message response latency patterns, optional HRV from wearable API
+Readiness score: computed every 15 minutes per user, stored in Redis
+Hard cap: no resolution queued for more than 48 hours regardless of readiness score
+Layer 4: Intelligence Core
+4A — Relationship Graph Engine (Neo4j)
+A persistent graph database that models every person and relationship the user tracks. Nodes represent people; edges represent relationship types with weighted properties.
+Graph schema
+The Relationship Health Score (visible on the dashboard) is a Neo4j graph algorithm output: a weighted sum of trust_index (40%), recent satisfaction_scores mean (30%), negotiation resolution rate (20%), and interaction recency (10%). Recomputed nightly via a Neo4j APOC scheduled query.
+4B — Negotiation Engine (LangGraph + Gemini)
+Every negotiation runs as a stateful LangGraph directed graph. LangGraph provides checkpointing, which means a negotiation can be paused, resumed, and replayed — critical for multi-hour coalition negotiations.
+Negotiation flow — state machine
+Structured JSON negotiation schema
+Every agent turn must return a valid JSON object matching this schema — enforced by Gemini's function-calling / structured output mode. This is the core fix for the AgentMesh 'too polite' problem: agents must quantify exactly what they're conceding.
+Shapley Value Allocator
+For N-party negotiations, once an agreement space is found, the Shapley allocator determines each party's fair share. For N > 6, exact Shapley computation is NP-hard — SYNAPSE uses Monte Carlo Shapley sampling (1,000 permutation samples) to approximate values within ±2% accuracy at O(n × k) complexity.
+Layer 5: Contract & Trust Layer
+Living Contract Runtime
+Contracts are stored as structured JSON documents in PostgreSQL with a JSONB clause field. The Contract Runtime service monitors trigger conditions by subscribing to the same Kafka sensor topics used by the Sensor Layer — it watches for signals that would activate adaptive, escalation, or expiry clauses.
+Contract clause types
+Blockchain Notarization — Polygon Amoy
+Each contract version is: serialized to canonical JSON → SHA-256 hashed → submitted as a Polygon Amoy transaction
+Smart contract (Hardhat, Solidity): a single AgreementRegistry.sol contract stores (bytes32 hash, address submitter, uint256 timestamp)
+Users receive a PolygonScan link for each agreement version — tamper-proof, timestamped proof
+Gas cost: ~0.001 MATIC per notarization — negligible, covered by SYNAPSE platform
+Contract upgrades: each new version creates a new on-chain entry linked to the previous hash — creating an immutable version chain
+Layer 6: Delivery Layer
+Delivery channels
+User actions on delivery
+Approve (one tap): resolution is finalized, contract is created and notarized
+Modify: user adjusts one parameter; agents re-run one final counter-round incorporating the change
+Override: user ignores agent resolution and sets their own terms (logged for negotiation style learning)
+Delay: user pushes resolution back 2 hours (triggers emotion gate re-check)
+3. Complete Tech Stack
+Every technology choice is made to serve one of three system goals: (1) real-time signal processing, (2) mathematically correct multi-party negotiation, (3) privacy-preserving persistent relationship intelligence.
+3.1  AI & Intelligence Stack
+3.2  Backend Stack
+3.3  Frontend Stack
+3.4  Blockchain & Trust Stack
+3.5  Infrastructure & DevOps Stack
+4. End-to-End Data Flow — Worked Example
+This section traces a single event — a roommate expense imbalance — through the entire system from sensor detection to resolution delivery.
+5. Scalability & Performance Design
+5.1  Horizontal Scaling
+Sensor adapters: stateless FastAPI pods, scale per integration type based on webhook volume
+Agent layer: each agent type scales independently as Kafka consumer groups — negotiation_start topic partitions = max agent parallelism
+Negotiation engine: each negotiation runs as an isolated LangGraph instance; 1 LangGraph instance per active negotiation — scales with active negotiations
+Neo4j: Causal clustering for read replicas; writes go to leader, reads distributed across replicas
+PostgreSQL: PgBouncer connection pooling; TimescaleDB compression chunks for older tension score data
+5.2  Latency Targets
+6. Security Design
+6.1  Data Privacy
+No raw message content ever stored — only embedding vectors (not reversible to original text)
+All embeddings computed on-device using MobileBERT before any data leaves the phone
+PostgreSQL row-level security: users can only access their own relationship data
+Each user's Neo4j subgraph is namespace-isolated by user_id — cross-user graph queries are structurally impossible
+GDPR / right-to-erasure: cascading delete from PostgreSQL, Neo4j, Redis, and Kafka topic compaction within 48h
+6.2  Authentication & Authorization
+OAuth 2.0 for all integration connections (Google, Slack, Telegram)
+Supabase JWT for API access; tokens expire in 1h; refresh tokens stored in secure httpOnly cookies
+Integration scopes are minimal: read-only wherever possible (Calendar: read only; Gmail: metadata only, not body)
+All secrets stored in HashiCorp Vault; rotated automatically every 90 days
+6.3  Agent Security
+Each agent prompt includes explicit instructions: agents may not reveal one party's BATNA or private preferences to another party's agent
+Negotiation transcripts are encrypted at rest in PostgreSQL using pgcrypto
+LangGraph checkpoints are stored with per-negotiation encryption keys — keys stored in Vault, not in the database
+7. Tech Stack at a Glance
+SYNAPSE  ·  System Design & Tech Stack  ·  v1.0  ·  Confidential
+
+========================================

@@ -13,9 +13,6 @@
       "dest": "frontend/web/$1"
     }
   ],
-  "env": {
-    "NEXT_PUBLIC_API_URL": "@synapse_api_url"
-  },
   "regions": ["sfo1"],
   "public": false
 }
